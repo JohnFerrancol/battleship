@@ -1,16 +1,16 @@
-# Template
+# Battleship
 
 [Live Demo](#)<br/><br/>
 [![The Odin Project](https://img.shields.io/badge/The%20Odin%20Project-A9792B?logo=theodinproject&logoColor=fff)](#)
 
 ## Overview
 
-This is a project from [The Odin Project](https://theodinproject.com): [Project: ](#).
+This is a project from [The Odin Project](https://theodinproject.com): [Project: Battleship](https://www.theodinproject.com/lessons/node-path-javascript-battleship). This project has us create the classic game of [Battleship](https://en.wikipedia.org/wiki/Battleship_(game)) by using Test Driven Development (TDD) Principles.
 
 ## Learning Points
 
--
--
+- Understanding the principles and the importance of Test Driven Development (TDD) for Software Development
+- Understood the use of the Jest package through the Use of Matchers and Mock functions to implement TDD in the Web application
 
 ## Tech Stack
 
@@ -39,7 +39,7 @@ Getting started on running the webpack server to your localhost, localhost:8080
 1. Running the webpack server
 
 ```sh
-git clone git@github.com:JohnFerrancol/XX.git
+git clone git@github.com:JohnFerrancol/battleship.git
 ```
 
 2. Installing npm packages
@@ -56,5 +56,7 @@ npm run serve
 
 ## Roadmap
 
-- [ ] XXX
-- [ ] XXX
+- [ ] Creating the Ship, Gameboard and Player Class 
+- [ ] Implementing a random ship placement function to place the ships in the Player's gameboard randomly
+- [ ] Implementing the turn-by-turn logic between the Player and the Enemy (Computer)
+- [ ] Adding logic when the game has ended
