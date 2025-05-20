@@ -8,8 +8,8 @@ export default class Gameboard {
       carrier: new Ship('carrier', 5),
       battleship: new Ship('battleship', 4),
       cruiser: new Ship('cruiser', 3),
-      submarine: new Ship('submarine', 3),
-      destroyer: new Ship('destroyer', 2),
+      submarine: new Ship('submarine', 2),
+      destroyer: new Ship('destroyer', 1),
     };
     this.missedAttacks = new Set([]);
     this.successfulAttacks = new Set([]);
