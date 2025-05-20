@@ -5,7 +5,7 @@
 
 ## Overview
 
-This is a project from [The Odin Project](https://theodinproject.com): [Project: Battleship](https://www.theodinproject.com/lessons/node-path-javascript-battleship). This project has us create the classic game of [Battleship](https://en.wikipedia.org/wiki/Battleship_(game)) by using Test Driven Development (TDD) Principles.
+This is a project from [The Odin Project](https://theodinproject.com): [Project: Battleship](https://www.theodinproject.com/lessons/node-path-javascript-battleship). This project has us create the classic game of [Battleship](<https://en.wikipedia.org/wiki/Battleship_(game)>) by using Test Driven Development (TDD) Principles.
 
 ## Learning Points
 
@@ -56,7 +56,8 @@ npm run serve
 
 ## Roadmap
 
-- [ ] Creating the Ship, Gameboard and Player Class 
-- [ ] Implementing a random ship placement function to place the ships in the Player's gameboard randomly
+- [x] Creating the Ship, Gameboard and Player Class
+- [x] Implementing a random ship placement function to place the ships in the Player's gameboard randomly
+- [ ] Crafting the User Interface
 - [ ] Implementing the turn-by-turn logic between the Player and the Enemy (Computer)
 - [ ] Adding logic when the game has ended
