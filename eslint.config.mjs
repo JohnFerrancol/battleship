@@ -14,4 +14,14 @@ export default defineConfig([
       globals: { ...globals.browser, ...globals.node },
     },
   },
+  {
+    overrides: [
+      {
+        files: ['src/tests/**/*'],
+        env: {
+          jest: true,
+        },
+      },
+    ],
+  },
 ]);

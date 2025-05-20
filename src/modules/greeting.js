@@ -1,1 +1,3 @@
-export const greeting = 'Hello Odinite';
+export default function sum(a, b) {
+  return a + b;
+}
