@@ -1,6 +1,7 @@
 export default class Ship {
-  constructor(length) {
+  constructor(name, length) {
     if (length <= 0) throw new Error('Ship length must be positive');
+    this.name = name;
     this.length = length;
     this.hitCount = 0;
   }

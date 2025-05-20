@@ -4,18 +4,21 @@ describe('Ship Class Unit Tests', () => {
   let ship;
 
   beforeEach(() => {
-    ship = new Ship(3);
+    ship = new Ship('submarine', 3);
   });
 
   it('creates and initialises the ship', () => {
+    expect(ship.name).toBe('submarine');
     expect(ship.length).toBe(3);
     expect(ship.hitCount).toBe(0);
     expect(ship.isSunk()).toBeFalsy();
   });
 
   it('does not creates and initialises the ship if length < 0', () => {
-    expect(() => new Ship(0)).toThrow('Ship length must be positive');
-    expect(() => new Ship(-1)).toThrow('Ship length must be positive');
+    expect(() => new Ship('air', 0)).toThrow('Ship length must be positive');
+    expect(() => new Ship('molecule', -1)).toThrow(
+      'Ship length must be positive'
+    );
   });
 
   it('takes a hit', () => {
