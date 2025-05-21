@@ -5,7 +5,7 @@ import {
   renderNewMessage,
 } from './modules/ui/render.js';
 import { Player, Computer } from './modules/classes/Player.js';
-import { setPlayers } from './modules/game-handler/gameState.js';
+import { gameController } from './modules/game-handler/gameController.js';
 import './modules/ui/events.js';
 
 (function () {
@@ -18,7 +18,7 @@ import './modules/ui/events.js';
   renderShips('player-board', player.gameboard.board);
   renderShips('computer-board', computer.gameboard.board);
 
-  setPlayers(player, computer);
+  gameController.startGame(player, computer);
 
   setTimeout(() => {
     renderNewMessage("Player's Turn");
