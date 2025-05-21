@@ -36,7 +36,7 @@ class Computer extends Player {
 
       try {
         this.attack(enemyGameboard, coords);
-        break;
+        return coords;
       } catch (err) {
         if (err.message !== 'Cell already attacked!') {
           throw err;

@@ -58,6 +58,6 @@ npm run serve
 
 - [x] Creating the Ship, Gameboard and Player Class
 - [x] Implementing a random ship placement function to place the ships in the Player's gameboard randomly
-- [ ] Crafting the User Interface
-- [ ] Implementing the turn-by-turn logic between the Player and the Enemy (Computer)
-- [ ] Adding logic when the game has ended
+- [x] Crafting the User Interface
+- [x] Implementing the turn-by-turn logic between the Player and the Enemy (Computer)
+- [x] Adding logic when the game has ended

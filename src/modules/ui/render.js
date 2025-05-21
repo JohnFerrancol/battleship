@@ -37,4 +37,21 @@ const renderShips = (boardId, boardArray) => {
   }
 };
 
-export { renderGameBoards, renderShips };
+const renderNewMessage = (message) => {
+  const gameStatus = document.querySelector('.game-status');
+  gameStatus.textContent = message;
+};
+
+const renderHitCell = (cellElement, isHit) => {
+  if (isHit) cellElement.classList.remove('grid-item-ship');
+  const line1 = document.createElement('div');
+  line1.id = 'line1';
+  line1.classList.add('line', isHit ? 'success' : 'miss');
+  const line2 = document.createElement('div');
+  line2.id = 'line2';
+  line2.classList.add('line', isHit ? 'success' : 'miss');
+  cellElement.appendChild(line1);
+  cellElement.appendChild(line2);
+};
+
+export { renderGameBoards, renderShips, renderNewMessage, renderHitCell };
