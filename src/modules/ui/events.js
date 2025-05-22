@@ -1,6 +1,18 @@
 import { gameController } from '../game-handler/gameController.js';
 import { renderNewMessage } from './render.js';
 
+const handleGameStart = (player, computer) => {
+  document.querySelector('#start-game').addEventListener('click', () => {
+    gameController.startGame(player, computer);
+  });
+};
+
+const handleNewBoard = (player) => {
+  document.querySelector('#new-board').addEventListener('click', () => {
+    gameController.newBoard(player);
+  });
+};
+
 document.querySelector('#computer-board').addEventListener('click', (event) => {
   const target = event.target;
   try {
@@ -23,3 +35,5 @@ document.querySelector('#computer-board').addEventListener('click', (event) => {
     }
   }
 });
+
+export { handleGameStart, handleNewBoard };
