@@ -1,10 +1,22 @@
-import { renderHitCell, renderNewMessage, renderShips } from '../ui/render';
+import {
+  renderGameBoards,
+  renderHitCell,
+  renderNewMessage,
+  renderShips,
+} from '../ui/render.js';
+import Ship from '../classes/Ship.js';
 
 const GameController = () => {
   let player, computer, isPlayerTurn;
   let isGameActive = false;
 
   const startGame = (playerObject, computerObject) => {
+    if (isGameActive) {
+      alert(
+        'Game is currently ongoing! Reset Game instead if you want to start a new game.'
+      );
+      return;
+    }
     player = playerObject;
     computer = computerObject;
     isPlayerTurn = true;
@@ -22,8 +34,19 @@ const GameController = () => {
     renderShips('player-board', playerObject.gameboard.board);
   };
 
+  const resetGame = () => {
+    if (!isGameActive) {
+      alert('Game is has not started!');
+      return;
+    }
+
+    if (confirm('Are you sure you want to restart the game?')) {
+      window.location.reload();
+    }
+  };
+
   const playTurn = (coords, targetElement) => {
-    if (!isPlayerTurn) return;
+    if (!isPlayerTurn || !isGameActive) return;
 
     player.attack(computer.gameboard, coords);
 
@@ -33,7 +56,8 @@ const GameController = () => {
     );
 
     if (computer.gameboard.hasAllShipsSunk()) {
-      renderNewMessage('Player has won! All ships from Computer has sunk!');
+      renderNewMessage('Player has won! Reset to Play Again!');
+
       const gridItems = document.querySelectorAll('.grid-item');
       gridItems.forEach((gridItem) => (gridItem.style.pointerEvents = 'none'));
       return;
@@ -53,7 +77,7 @@ const GameController = () => {
       renderHitCell(gridItem, gridItem.classList.contains('grid-item-ship'));
 
       if (player.gameboard.hasAllShipsSunk()) {
-        renderNewMessage('Computer has won! All ships from Player has sunk!');
+        renderNewMessage('Computer has won! Reset to Play Again!');
         const gridItems = document.querySelectorAll('.grid-item');
         gridItems.forEach(
           (gridItem) => (gridItem.style.pointerEvents = 'none')
@@ -66,7 +90,7 @@ const GameController = () => {
     }, 500);
   };
 
-  return { startGame, playTurn, changePlayerBoard };
+  return { startGame, playTurn, changePlayerBoard, resetGame };
 };
 
 export const gameController = GameController();

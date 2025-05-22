@@ -4,6 +4,7 @@ const renderGameBoards = () => {
     // Select all of the divs with the class grid-item and remove them
     const gridDivs = gameBoard.querySelectorAll('.grid-item');
     gridDivs.forEach((grid) => {
+      grid.className = 'grid-item';
       grid.remove();
     });
 

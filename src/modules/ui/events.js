@@ -13,6 +13,10 @@ const handleNewBoard = (player) => {
   });
 };
 
+document.querySelector('#reset-game').addEventListener('click', () => {
+  gameController.resetGame();
+});
+
 document.querySelector('#computer-board').addEventListener('click', (event) => {
   const target = event.target;
   try {
