@@ -92,6 +92,10 @@ describe('Gameboard class Unit tests for randomlyPlaceShips method', () => {
   });
 
   it('places the 5 ships in random locations', () => {
+    const totalLengthOfShips = flattenedCells.filter(
+      (cell) => cell !== null
+    ).length;
+    expect(totalLengthOfShips).toBe(15);
     for (const shipKey in gameboard.ships) {
       expect(flattenedCells).toContain(gameboard.ships[shipKey]);
     }
@@ -116,6 +120,61 @@ describe('Gameboard class Unit tests for randomlyPlaceShips method', () => {
     ).length;
 
     expect(totalNonNullCells).toBe(totalShipLength);
+  });
+});
+
+describe('Gameboard class Unit tests for reorderShips method', () => {
+  let flattenedCells;
+  beforeEach(() => {
+    gameboard = new Gameboard();
+    gameboard.randomlyPlaceShips();
+    flattenedCells = gameboard.board.flat();
+  });
+
+  test('whether the board has actually changed', () => {
+    const oldBoard = gameboard.board.map((row) => [...row]);
+
+    gameboard.reorderShips();
+
+    const newBoard = gameboard.board;
+
+    let isDifferent = false;
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 10; j++) {
+        if (oldBoard[i][j] !== newBoard[i][j]) {
+          isDifferent = true;
+          break;
+        }
+      }
+      if (isDifferent) break;
+    }
+    expect(isDifferent).toBe(true);
+  });
+
+  it('still places the 5 ships in random locations', () => {
+    gameboard.reorderShips();
+    flattenedCells = gameboard.board.flat();
+
+    const totalLengthOfShips = flattenedCells.filter(
+      (cell) => cell !== null
+    ).length;
+    expect(totalLengthOfShips).toBe(15);
+
+    for (const shipKey in gameboard.ships) {
+      expect(flattenedCells).toContain(gameboard.ships[shipKey]);
+    }
+  });
+
+  it('still ensures that the length of each ship is correct', () => {
+    gameboard.reorderShips();
+    flattenedCells = gameboard.board.flat();
+
+    for (const shipKey in gameboard.ships) {
+      const shipCellsCount = flattenedCells.filter(
+        (cell) => cell === gameboard.ships[shipKey]
+      ).length;
+      expect(shipCellsCount).toBe(gameboard.ships[shipKey].length);
+    }
   });
 });
 
