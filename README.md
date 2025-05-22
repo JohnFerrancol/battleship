@@ -61,4 +61,6 @@ npm run serve
 - [x] Crafting the User Interface
 - [x] Implementing the turn-by-turn logic between the Player and the Enemy (Computer)
 - [x] Adding logic when the game has ended
-- [ ] Added button to edit the board for the player, start a new game, restart the game
+- [x] Added button to edit the board for the player, start a new game, restart the game
+- [ ] Implement drag and drop to allow players to place their ships
+- [ ] Polish the intelligence of the computer player by having it try adjacent slots after getting a ‘hit’.

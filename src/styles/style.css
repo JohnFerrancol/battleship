@@ -75,11 +75,14 @@ main.game-container {
 }
 
 main .board-container {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 25vw);
+  grid-template-rows: 25vw 5vw;
   padding: 1rem 15vw;
   align-items: center;
   justify-content: center;
+  row-gap: 2.5rem;
   column-gap: 15rem;
 }
 
@@ -149,6 +152,16 @@ main .invalid-click {
   100% {
     transform: translate(1px, -1px);
   }
+}
+
+main .board-container > ul {
+  list-style-type: none;
+  justify-self: center;
+}
+
+main .sunk {
+  color: red;
+  text-decoration: line-through;
 }
 
 main .button-container {

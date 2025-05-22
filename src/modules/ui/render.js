@@ -1,3 +1,5 @@
+import { Player, Computer } from '../classes/Player.js';
+
 const renderGameBoards = () => {
   const gameBoards = document.querySelectorAll('.game-board');
   gameBoards.forEach((gameBoard) => {
@@ -49,6 +51,7 @@ const renderNewMessage = (message) => {
 
 const renderHitCell = (cellElement, isHit) => {
   if (isHit) cellElement.classList.remove('grid-item-ship');
+
   const line1 = document.createElement('div');
   line1.id = 'line1';
   line1.classList.add('line', isHit ? 'success' : 'miss');
@@ -59,4 +62,22 @@ const renderHitCell = (cellElement, isHit) => {
   cellElement.appendChild(line2);
 };
 
-export { renderGameBoards, renderShips, renderNewMessage, renderHitCell };
+const renderShipsSunk = (shipName, whichPlayer) => {
+  const listToChange =
+    whichPlayer === 'player'
+      ? document.querySelector('#player-ships')
+      : document.querySelector('#computer-ships');
+
+  const shipToStrike = listToChange.querySelector(
+    `li[data-ship="${shipName}"]`
+  );
+  shipToStrike.classList.add('sunk');
+};
+
+export {
+  renderGameBoards,
+  renderShips,
+  renderNewMessage,
+  renderHitCell,
+  renderShipsSunk,
+};

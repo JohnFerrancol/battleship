@@ -1,10 +1,9 @@
 import {
-  renderGameBoards,
+  renderShipsSunk,
   renderHitCell,
   renderNewMessage,
   renderShips,
 } from '../ui/render.js';
-import Ship from '../classes/Ship.js';
 
 const GameController = () => {
   let player, computer, isPlayerTurn;
@@ -55,6 +54,11 @@ const GameController = () => {
       targetElement.classList.contains('grid-item-ship')
     );
 
+    for (const shipKey in computer.gameboard.ships) {
+      if (computer.gameboard.ships[shipKey].isSunk())
+        renderShipsSunk(shipKey, 'computer');
+    }
+
     if (computer.gameboard.hasAllShipsSunk()) {
       renderNewMessage('Player has won! Reset to Play Again!');
 
@@ -75,6 +79,11 @@ const GameController = () => {
       );
 
       renderHitCell(gridItem, gridItem.classList.contains('grid-item-ship'));
+
+      for (const shipKey in player.gameboard.ships) {
+        if (player.gameboard.ships[shipKey].isSunk())
+          renderShipsSunk(shipKey, 'player');
+      }
 
       if (player.gameboard.hasAllShipsSunk()) {
         renderNewMessage('Computer has won! Reset to Play Again!');
