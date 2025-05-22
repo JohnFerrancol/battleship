@@ -7,12 +7,6 @@ const handleGameStart = (player, computer) => {
   });
 };
 
-const handleGameStart = (player, computer) => {
-  document.querySelector('#start-game').addEventListener('click', () => {
-    gameController.startGame(player, computer);
-  });
-};
-
 document.querySelector('#computer-board').addEventListener('click', (event) => {
   const target = event.target;
   try {
