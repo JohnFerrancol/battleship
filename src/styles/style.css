@@ -64,13 +64,23 @@ header .game-status {
   box-shadow: var(--content-box-shadow);
 }
 
-main.boards-container {
+main .player-title {
+  font-family: var(--font-bold);
+}
+
+main.game-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+main .board-container {
   display: grid;
   grid-template-columns: repeat(2, 25vw);
   padding: 1rem 15vw;
   align-items: center;
   justify-content: center;
-  gap: 15rem;
+  column-gap: 15rem;
 }
 
 main .game-board {
@@ -115,7 +125,7 @@ main .success {
 }
 
 main .miss {
-  background-color: black;
+  background-color: var(--black);
 }
 
 main .invalid-click {
@@ -141,6 +151,19 @@ main .invalid-click {
   }
 }
 
-main .player-title {
-  font-family: var(--font-bold);
+main .button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+main .game-buttons {
+  background-color: var(--dark-navy);
+  color: var(--white);
+  font-size: 1.25rem;
+  font-family: inherit;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 1rem;
 }

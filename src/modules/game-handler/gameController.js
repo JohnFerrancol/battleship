@@ -2,11 +2,15 @@ import { renderHitCell, renderNewMessage } from '../ui/render';
 
 const GameController = () => {
   let player, computer, isPlayerTurn;
+  let isGameActive = false;
 
   const startGame = (playerObject, computerObject) => {
     player = playerObject;
     computer = computerObject;
     isPlayerTurn = true;
+    isGameActive = true;
+
+    renderNewMessage("Player's Turn");
   };
 
   const playTurn = (coords, targetElement) => {
