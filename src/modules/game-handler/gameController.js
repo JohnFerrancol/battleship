@@ -1,4 +1,4 @@
-import { renderHitCell, renderNewMessage } from '../ui/render';
+import { renderHitCell, renderNewMessage, renderShips } from '../ui/render';
 
 const GameController = () => {
   let player, computer, isPlayerTurn;
