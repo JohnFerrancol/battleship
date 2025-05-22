@@ -25,6 +25,10 @@ const renderGameBoards = () => {
 
 const renderShips = (boardId, boardArray) => {
   const gameBoard = document.querySelector(`#${boardId}`);
+  gameBoard.querySelectorAll('.grid-item').forEach((gridItem) => {
+    if (gridItem.classList.contains('grid-item-ship'))
+      gridItem.classList.remove('grid-item-ship');
+  });
   for (let i = 0; i < boardArray.length; i++) {
     for (let j = 0; j < boardArray.length; j++) {
       if (boardArray[i][j] !== null) {

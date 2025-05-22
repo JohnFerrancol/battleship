@@ -67,6 +67,13 @@ export default class Gameboard {
     }
   }
 
+  reorderShips() {
+    this.board = Array.from({ length: this.size }, () =>
+      Array(this.size).fill(null)
+    );
+    this.randomlyPlaceShips();
+  }
+
   receiveAttack(coords) {
     const [x, y] = coords;
 

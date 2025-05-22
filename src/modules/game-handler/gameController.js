@@ -13,6 +13,15 @@ const GameController = () => {
     renderNewMessage("Player's Turn");
   };
 
+  const changePlayerBoard = (playerObject) => {
+    if (isGameActive) {
+      alert('Game is currently ongoing! You cannot change ship positions.');
+      return;
+    }
+    playerObject.reorderShips();
+    renderShips('player-board', playerObject.gameboard.board);
+  };
+
   const playTurn = (coords, targetElement) => {
     if (!isPlayerTurn) return;
 
@@ -57,7 +66,7 @@ const GameController = () => {
     }, 500);
   };
 
-  return { startGame, playTurn };
+  return { startGame, playTurn, changePlayerBoard };
 };
 
 export const gameController = GameController();

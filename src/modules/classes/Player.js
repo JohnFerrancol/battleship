@@ -9,6 +9,10 @@ class Player {
     this.gameboard.randomlyPlaceShips();
   }
 
+  reorderShips() {
+    this.gameboard.reorderShips();
+  }
+
   attack(enemyGameboard, coords) {
     enemyGameboard.receiveAttack(coords);
   }

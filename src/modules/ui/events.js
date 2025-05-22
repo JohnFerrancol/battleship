@@ -7,6 +7,12 @@ const handleGameStart = (player, computer) => {
   });
 };
 
+const handleNewBoard = (player) => {
+  document.querySelector('#new-board').addEventListener('click', () => {
+    gameController.changePlayerBoard(player);
+  });
+};
+
 document.querySelector('#computer-board').addEventListener('click', (event) => {
   const target = event.target;
   try {
@@ -30,4 +36,4 @@ document.querySelector('#computer-board').addEventListener('click', (event) => {
   }
 });
 
-export { handleGameStart };
+export { handleGameStart, handleNewBoard };

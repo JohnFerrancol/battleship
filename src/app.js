@@ -2,7 +2,7 @@ import './styles/style.css';
 import { renderGameBoards, renderShips } from './modules/ui/render.js';
 import { Player, Computer } from './modules/classes/Player.js';
 import './modules/ui/events.js';
-import { handleGameStart } from './modules/ui/events.js';
+import { handleGameStart, handleNewBoard } from './modules/ui/events.js';
 
 (function () {
   renderGameBoards();
@@ -16,4 +16,5 @@ import { handleGameStart } from './modules/ui/events.js';
   renderShips('computer-board', computer.gameboard.board);
 
   handleGameStart(player, computer);
+  handleNewBoard(player);
 })();
