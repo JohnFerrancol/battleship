@@ -71,7 +71,7 @@ const GameController = () => {
     renderNewMessage("Computer's Turn");
 
     setTimeout(() => {
-      const coords = computer.makeRandomAttack(player.gameboard);
+      const coords = computer.huntTarget(player.gameboard);
 
       const playerGameboard = document.querySelector('#player-board');
       const gridItem = playerGameboard.querySelector(

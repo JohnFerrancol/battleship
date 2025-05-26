@@ -13,6 +13,7 @@ export default class Gameboard {
     };
     this.missedAttacks = new Set([]);
     this.successfulAttacks = new Set([]);
+    this.targetQueue = [];
   }
 
   isValidPlaceForShip(shipLength, coords, isHorizontal) {
@@ -95,6 +96,7 @@ export default class Gameboard {
         if (!cell.isSunk()) {
           cell.hit();
           this.successfulAttacks.add(coordKey);
+          this.addTargets(coords);
         }
       } else {
         this.missedAttacks.add(coordKey);
@@ -110,5 +112,34 @@ export default class Gameboard {
     }
 
     return true;
+  }
+
+  addTargets(coords) {
+    const [row, col] = coords;
+    const directions = [
+      [1, 0],
+      [0, 1],
+      [-1, 0],
+      [0, -1],
+    ];
+
+    for (const [dRow, dCol] of directions) {
+      const targetRow = row + dRow;
+      const targetCol = col + dCol;
+
+      const coordKey = `${targetRow},${targetCol}`;
+
+      if (
+        targetRow >= 0 &&
+        targetRow < this.size &&
+        targetCol >= 0 &&
+        targetCol < this.size &&
+        !this.missedAttacks.has(coordKey) &&
+        !this.successfulAttacks.has(coordKey) &&
+        !this.targetQueue.some(([r, c]) => r === targetRow && c === targetCol)
+      ) {
+        this.targetQueue.push([targetRow, targetCol]);
+      }
+    }
   }
 }

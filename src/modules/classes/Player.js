@@ -25,6 +25,7 @@ class Player {
 class Computer extends Player {
   constructor() {
     super();
+    this.targetQueue = [];
   }
 
   getRandomCoords() {
@@ -46,6 +47,17 @@ class Computer extends Player {
           throw err;
         }
       }
+    }
+  }
+
+  huntTarget(enemyGameboard) {
+    if (enemyGameboard.targetQueue.length === 0) {
+      const randomCoords = this.makeRandomAttack(enemyGameboard);
+      return randomCoords;
+    } else {
+      const targetCoords = enemyGameboard.targetQueue.shift();
+      this.attack(enemyGameboard, targetCoords);
+      return targetCoords;
     }
   }
 }
