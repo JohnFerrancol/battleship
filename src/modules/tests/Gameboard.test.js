@@ -250,3 +250,26 @@ describe('Gameboard class Unit tests for hasAllShipsSunk method', () => {
     expect(gameboard.hasAllShipsSunk()).toBeTruthy();
   });
 });
+
+describe('Gameboard class Unit tests for addTargets method', () => {
+  beforeEach(() => {
+    gameboard = new Gameboard();
+  });
+
+  it('successfully add 4 targets if there is no bound or duplicate exceptions', () => {
+    gameboard.addTargets([4, 4]);
+    expect(gameboard.targetQueue.length).toBe(4);
+  });
+
+  it('successfully handles when there the cell has already been attacked/ handling out of bounds cases', () => {
+    gameboard.missedAttacks.add('0,1');
+    gameboard.successfulAttacks.add('1,2');
+    gameboard.addTargets([1, 1]);
+    expect(gameboard.targetQueue.length).toBe(2);
+    gameboard.targetQueue = [];
+
+    gameboard.successfulAttacks.add('9,8');
+    gameboard.addTargets([9, 7]);
+    expect(gameboard.targetQueue.length).toBe(2);
+  });
+});

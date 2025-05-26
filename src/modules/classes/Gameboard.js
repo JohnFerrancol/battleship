@@ -136,7 +136,9 @@ export default class Gameboard {
         targetCol < this.size &&
         !this.missedAttacks.has(coordKey) &&
         !this.successfulAttacks.has(coordKey) &&
-        !this.targetQueue.some(([r, c]) => r === targetRow && c === targetCol)
+        !this.targetQueue.some(
+          ([row, col]) => row === targetRow && col === targetCol
+        )
       ) {
         this.targetQueue.push([targetRow, targetCol]);
       }

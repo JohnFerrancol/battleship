@@ -39,7 +39,7 @@ describe('Player Class Methods Unit tests', () => {
   });
 });
 
-describe('Computer Class Methods Unit tests', () => {
+describe('Computer Class Methods Unit tests for making a random attack', () => {
   let player, computer;
   beforeEach(() => {
     player = new Player();
@@ -68,5 +68,28 @@ describe('Computer Class Methods Unit tests', () => {
       player.gameboard.successfulAttacks.size;
 
     expect(totalAttacksCount).toBe(10);
+  });
+});
+
+describe('Computer class Unit tests for the huntTarget method', () => {
+  let computer, player, makeRandomAttackSpy, attackSpy;
+
+  beforeEach(() => {
+    computer = new Computer();
+    player = new Player();
+    makeRandomAttackSpy = jest.spyOn(computer, 'makeRandomAttack');
+    attackSpy = jest.spyOn(computer, 'attack');
+  });
+
+  it('calls makeRandomAttack method when the targetQueue is empty', () => {
+    computer.huntTarget(player.gameboard);
+    expect(makeRandomAttackSpy).toHaveBeenCalled();
+  });
+
+  it('calls attack on the right coordinates from the targetQueue', () => {
+    player.gameboard.targetQueue = [[2, 3]];
+    computer.huntTarget(player.gameboard);
+    expect(attackSpy).toHaveBeenCalledWith(player.gameboard, [2, 3]);
+    expect(makeRandomAttackSpy).not.toHaveBeenCalled();
   });
 });
