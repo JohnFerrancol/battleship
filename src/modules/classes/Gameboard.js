@@ -14,6 +14,8 @@ export default class Gameboard {
     this.missedAttacks = new Set([]);
     this.successfulAttacks = new Set([]);
     this.targetQueue = [];
+    this.hitStreak = [];
+    this.inferredOrientation = null;
   }
 
   isValidPlaceForShip(shipLength, coords, isHorizontal) {
@@ -96,7 +98,13 @@ export default class Gameboard {
         if (!cell.isSunk()) {
           cell.hit();
           this.successfulAttacks.add(coordKey);
+          this.hitStreak.push(coords);
+          this.inferOrientation();
           this.addTargets(coords);
+        } else {
+          this.hitStreak = [];
+          this.inferredDirection = null;
+          this.targetQueue = [];
         }
       } else {
         this.missedAttacks.add(coordKey);
@@ -104,24 +112,37 @@ export default class Gameboard {
     }
   }
 
-  hasAllShipsSunk() {
-    for (const shipKey in this.ships) {
-      const ship = this.ships[shipKey];
+  inferOrientation() {
+    if (this.hitStreak.length >= 2) {
+      const [x1, y1] = this.hitStreak[0];
+      const [x2, y2] = this.hitStreak[1];
 
-      if (!ship.isSunk()) return false;
+      if (Math.abs(x2 - x1) === 0) this.inferredOrientation = 'horizontal';
+      else if (Math.abs(y2 - y1) === 0) this.inferredOrientation = 'vertical';
     }
-
-    return true;
   }
 
   addTargets(coords) {
     const [row, col] = coords;
-    const directions = [
-      [1, 0],
-      [0, 1],
-      [-1, 0],
-      [0, -1],
-    ];
+    let directions;
+    if (this.inferredOrientation === 'horizontal') {
+      directions = [
+        [0, 1],
+        [0, -1],
+      ];
+    } else if (this.inferredOrientation === 'vertical') {
+      directions = [
+        [1, 0],
+        [-1, 0],
+      ];
+    } else {
+      directions = [
+        [1, 0],
+        [0, 1],
+        [-1, 0],
+        [0, -1],
+      ];
+    }
 
     for (const [dRow, dCol] of directions) {
       const targetRow = row + dRow;
@@ -143,5 +164,15 @@ export default class Gameboard {
         this.targetQueue.push([targetRow, targetCol]);
       }
     }
+  }
+
+  hasAllShipsSunk() {
+    for (const shipKey in this.ships) {
+      const ship = this.ships[shipKey];
+
+      if (!ship.isSunk()) return false;
+    }
+
+    return true;
   }
 }

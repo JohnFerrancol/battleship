@@ -63,4 +63,4 @@ npm run serve
 - [x] Adding logic when the game has ended
 - [x] Added button to edit the board for the player, start a new game, restart the game
 - [ ] Implement drag and drop to allow players to place their ships
-- [ ] Polish the intelligence of the computer player by having it try adjacent slots after getting a ‘hit’.
+- [x] Polish the intelligence of the computer player by having it try adjacent slots after getting a ‘hit’.

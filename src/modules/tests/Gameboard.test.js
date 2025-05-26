@@ -228,26 +228,44 @@ describe('Gameboard class Unit tests for receiveAttack method', () => {
   });
 });
 
-describe('Gameboard class Unit tests for hasAllShipsSunk method', () => {
-  let flattenedCells;
+describe('Gameboard class Unit tests for inferOrientation method', () => {
   beforeEach(() => {
     gameboard = new Gameboard();
-    gameboard.randomlyPlaceShips();
-    flattenedCells = gameboard.board.flat();
   });
 
-  it('returns false if not all ships are sunk', () => {
-    expect(gameboard.hasAllShipsSunk()).toBeFalsy();
+  it('infers a horizontal ship when there is difference in the y coordinate', () => {
+    gameboard.hitStreak.push([2, 3]);
+    gameboard.hitStreak.push([2, 4]);
+
+    gameboard.inferOrientation();
+
+    expect(gameboard.inferredOrientation).toBe('horizontal');
   });
 
-  it('returns true if all ships are sunk', () => {
-    for (let i = 0; i < gameboard.size; i++) {
-      for (let j = 0; j < gameboard.size; j++) {
-        gameboard.receiveAttack([i, j]);
-      }
-    }
+  it('infers a vertical ship when there is difference in the x coordinate', () => {
+    gameboard.hitStreak.push([2, 3]);
+    gameboard.hitStreak.push([3, 3]);
 
-    expect(gameboard.hasAllShipsSunk()).toBeTruthy();
+    gameboard.inferOrientation();
+
+    expect(gameboard.inferredOrientation).toBe('vertical');
+  });
+
+  it('does not infer orientation if hitStreak has less than 2 hits', () => {
+    gameboard.hitStreak.push([2, 3]);
+
+    gameboard.inferOrientation();
+
+    expect(gameboard.inferredOrientation).toBeNull();
+  });
+
+  it('does not infer orientation if hits are diagonal', () => {
+    gameboard.hitStreak.push([2, 3]);
+    gameboard.hitStreak.push([3, 4]);
+
+    gameboard.inferOrientation();
+
+    expect(gameboard.inferredOrientation).toBeNull();
   });
 });
 
@@ -271,5 +289,50 @@ describe('Gameboard class Unit tests for addTargets method', () => {
     gameboard.successfulAttacks.add('9,8');
     gameboard.addTargets([9, 7]);
     expect(gameboard.targetQueue.length).toBe(2);
+  });
+
+  it('successfully handles when there is an inferred horizontal direction', () => {
+    gameboard.successfulAttacks.add('1,2');
+    gameboard.successfulAttacks.add('1,3');
+    gameboard.hitStreak.push([1, 2]);
+    gameboard.hitStreak.push([1, 3]);
+    gameboard.inferOrientation();
+
+    gameboard.addTargets([1, 4]);
+    expect(gameboard.targetQueue).toContainEqual([1, 5]);
+  });
+
+  it('successfully handles when there is an inferred vertical direction', () => {
+    gameboard.successfulAttacks.add('4,2');
+    gameboard.successfulAttacks.add('5,2');
+    gameboard.hitStreak.push([4, 2]);
+    gameboard.hitStreak.push([5, 2]);
+    gameboard.inferOrientation();
+
+    gameboard.addTargets([6, 2]);
+    expect(gameboard.targetQueue).toContainEqual([7, 2]);
+  });
+});
+
+describe('Gameboard class Unit tests for hasAllShipsSunk method', () => {
+  let flattenedCells;
+  beforeEach(() => {
+    gameboard = new Gameboard();
+    gameboard.randomlyPlaceShips();
+    flattenedCells = gameboard.board.flat();
+  });
+
+  it('returns false if not all ships are sunk', () => {
+    expect(gameboard.hasAllShipsSunk()).toBeFalsy();
+  });
+
+  it('returns true if all ships are sunk', () => {
+    for (let i = 0; i < gameboard.size; i++) {
+      for (let j = 0; j < gameboard.size; j++) {
+        gameboard.receiveAttack([i, j]);
+      }
+    }
+
+    expect(gameboard.hasAllShipsSunk()).toBeTruthy();
   });
 });
