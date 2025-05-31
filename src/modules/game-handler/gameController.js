@@ -4,6 +4,7 @@ import {
   renderNewMessage,
   renderShips,
 } from '../ui/render.js';
+import { showDialog } from '../ui/events.js';
 
 const GameController = () => {
   let player, computer, isPlayerTurn;
@@ -11,9 +12,7 @@ const GameController = () => {
 
   const startGame = (playerObject, computerObject) => {
     if (isGameActive) {
-      alert(
-        'Game is currently ongoing! Reset Game instead if you want to start a new game.'
-      );
+      showDialog('Game is currently ongoing! Reset the Game first!', 'alert');
       return;
     }
     player = playerObject;
@@ -26,7 +25,10 @@ const GameController = () => {
 
   const changePlayerBoard = (playerObject) => {
     if (isGameActive) {
-      alert('Game is currently ongoing! You cannot change ship positions.');
+      showDialog(
+        'Game is currently ongoing! You cannot change ship positions!',
+        'alert'
+      );
       return;
     }
     playerObject.reorderShips();
@@ -35,13 +37,11 @@ const GameController = () => {
 
   const resetGame = () => {
     if (!isGameActive) {
-      alert('Game is has not started!');
+      showDialog('Game is has not started!', 'alert');
       return;
     }
 
-    if (confirm('Are you sure you want to restart the game?')) {
-      window.location.reload();
-    }
+    showDialog('Are you sure you want to restart the game?', 'confirm');
   };
 
   const playTurn = (coords, targetElement) => {

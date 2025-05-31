@@ -1,5 +1,5 @@
 import { gameController } from '../game-handler/gameController.js';
-import { renderNewMessage } from './render.js';
+import { renderMessageDialog, renderNewMessage } from './render.js';
 
 const handleGameStart = (player, computer) => {
   document.querySelector('#start-game').addEventListener('click', () => {
@@ -11,6 +11,31 @@ const handleNewBoard = (player) => {
   document.querySelector('#new-board').addEventListener('click', () => {
     gameController.changePlayerBoard(player);
   });
+};
+
+const showDialog = (message, dialogClassName) => {
+  const messageDialog = document.querySelector('dialog');
+  messageDialog.innerHTML = '';
+  renderMessageDialog(message, dialogClassName);
+
+  messageDialog.showModal();
+
+  const closingElements = document.querySelectorAll(
+    '.close-dialog-icon, .close-button'
+  );
+
+  closingElements.forEach((closingElement) => {
+    closingElement.addEventListener('click', () => {
+      messageDialog.close();
+    });
+  });
+
+  if (dialogClassName === 'confirm') {
+    const resetGameButton = document.querySelector('.reset-button');
+    resetGameButton.addEventListener('click', () => {
+      window.location.reload();
+    });
+  }
 };
 
 document.querySelector('#reset-game').addEventListener('click', () => {
@@ -40,4 +65,4 @@ document.querySelector('#computer-board').addEventListener('click', (event) => {
   }
 });
 
-export { handleGameStart, handleNewBoard };
+export { handleGameStart, handleNewBoard, showDialog };

@@ -1,4 +1,4 @@
-import { Player, Computer } from '../classes/Player.js';
+import closeDialogLogo from '../../assets/logos/close.svg';
 
 const renderGameBoards = () => {
   const gameBoards = document.querySelectorAll('.game-board');
@@ -74,10 +74,49 @@ const renderShipsSunk = (shipName, whichPlayer) => {
   shipToStrike.classList.add('sunk');
 };
 
+const renderMessageDialog = (message, className) => {
+  const messageDialog = document.querySelector('dialog');
+  messageDialog.classList.add(className);
+
+  const closeDialogContainer = document.createElement('div');
+  closeDialogContainer.classList.add('close-dialog-container');
+
+  const closeDialogIcon = document.createElement('img');
+  closeDialogIcon.classList.add('close-dialog-icon');
+  closeDialogIcon.src = closeDialogLogo;
+  closeDialogIcon.alt = 'Close Dialog';
+  closeDialogContainer.appendChild(closeDialogIcon);
+  messageDialog.appendChild(closeDialogContainer);
+
+  const dialogMessage = document.createElement('p');
+  dialogMessage.textContent = message;
+  dialogMessage.classList.add('dialog-message');
+  messageDialog.appendChild(dialogMessage);
+
+  const buttonContainer = document.createElement('div');
+  buttonContainer.classList.add('button-container');
+  messageDialog.appendChild(buttonContainer);
+
+  const utilityButton = document.createElement('button');
+  utilityButton.classList.add(
+    className === 'alert' ? 'close-button' : 'reset-button'
+  );
+  utilityButton.textContent = 'OK';
+  buttonContainer.appendChild(utilityButton);
+
+  if (className === 'confirm') {
+    const closeButton = document.createElement('button');
+    closeButton.classList.add('close-button');
+    closeButton.textContent = 'Cancel';
+    buttonContainer.appendChild(closeButton);
+  }
+};
+
 export {
   renderGameBoards,
   renderShips,
   renderNewMessage,
   renderHitCell,
   renderShipsSunk,
+  renderMessageDialog,
 };

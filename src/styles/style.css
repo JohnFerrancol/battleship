@@ -23,6 +23,7 @@
   --black: #202020;
   --white: #ffffff;
   --dark-navy: #2c3e50;
+  --red: #ff3333;
   --content-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -36,6 +37,12 @@ body {
   font-family: var(--font-regular);
   background-color: var(--light-grey);
   color: var(--text-primary-color);
+}
+
+button,
+.grid-item,
+.close-dialog-icon {
+  cursor: pointer;
 }
 
 header.game-header {
@@ -101,6 +108,10 @@ main .grid-item {
   position: relative;
 }
 
+main .grid-item:hover {
+  background-color: var(--light-grey);
+}
+
 main .grid-item-ship {
   background-color: var(--dark-navy);
 }
@@ -124,7 +135,7 @@ main #line2 {
 }
 
 main .success {
-  background-color: red;
+  background-color: var(--red);
 }
 
 main .miss {
@@ -133,7 +144,7 @@ main .miss {
 
 main .invalid-click {
   animation: shake 0.3s;
-  background-color: #ffdddd;
+  border: 2px solid var(--red);
 }
 
 @keyframes shake {
@@ -160,7 +171,7 @@ main .board-container > ul {
 }
 
 main .sunk {
-  color: red;
+  color: var(--red);
   text-decoration: line-through;
 }
 
@@ -179,4 +190,51 @@ main .game-buttons {
   border: none;
   border-radius: 0.5rem;
   padding: 1rem;
+}
+
+dialog {
+  margin: auto;
+  width: 15%;
+  font-family: inherit;
+  background-color: inherit;
+  color: inherit;
+  border: none;
+  box-shadow: var(--dialog-box-shadow);
+  font-size: 1.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+dialog .close-dialog-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+dialog .close-dialog-icon {
+  width: 3rem;
+  height: auto;
+  cursor: pointer;
+}
+
+dialog .dialog-message {
+  text-align: center;
+  font-family: var(--font-bold);
+}
+
+dialog .button-container {
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+dialog .close-button,
+.reset-button {
+  background-color: var(--black);
+  font-size: 1.25rem;
+  color: var(--white);
+  border: none;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
 }
