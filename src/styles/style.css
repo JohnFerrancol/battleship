@@ -86,7 +86,7 @@ main .board-container {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 25vw);
-  grid-template-rows: 25vw 5vw;
+  grid-template-rows: 25vw 6vw;
   padding: 1rem 15vw;
   align-items: center;
   justify-content: center;
@@ -166,14 +166,24 @@ main .invalid-click {
   }
 }
 
-main .board-container > ul {
-  list-style-type: none;
-  justify-self: center;
+main .ships-status-container {
+  display: flex;
+  padding-top: 1rem;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+main .ship-wrapper {
+  display: flex;
+  gap: 1rem;
+}
+
+main .ship-status-element {
+  display: flex;
 }
 
 main .sunk {
-  color: var(--red);
-  text-decoration: line-through;
+  background-color: var(--red);
 }
 
 main .button-container {

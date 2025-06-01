@@ -39,16 +39,6 @@ const GameController = () => {
     document
       .querySelector('.change-ships-dialog')
       .addEventListener('close', () => {
-        const isBoardIncomplete = (boardArray) => {
-          const flattenedCells = boardArray.flat();
-          const totalLengthOfShips = flattenedCells.filter(
-            (cell) => cell !== null
-          ).length;
-
-          return totalLengthOfShips !== 17;
-        };
-        if (isBoardIncomplete(playerObject.gameboard.board))
-          playerObject.reorderShips();
         renderShips('player-board', playerObject.gameboard.board);
         renderShips('computer-board', computerObject.gameboard.board);
       });

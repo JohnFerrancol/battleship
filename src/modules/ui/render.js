@@ -76,6 +76,44 @@ const renderShips = (boardId, boardArray) => {
   }
 };
 
+const renderShipsStatus = () => {
+  const statusContainers = document.querySelectorAll(`.ships-status-container`);
+  statusContainers.forEach((statusContainer) => {
+    const shipList = [
+      { shipName: 'carrier', length: 5 },
+      { shipName: 'battleship', length: 4 },
+      { shipName: 'cruiser', length: 3 },
+      { shipName: 'submarine', length: 3 },
+      { shipName: 'destroyer', length: 2 },
+    ];
+
+    for (let ship of shipList) {
+      const shipWrapper = document.createElement('div');
+      shipWrapper.classList.add('ship-wrapper');
+      statusContainer.appendChild(shipWrapper);
+
+      const shipNameDisplay = document.createElement('p');
+      shipNameDisplay.classList.add('ship-name');
+      shipNameDisplay.textContent = ship.shipName;
+      shipWrapper.appendChild(shipNameDisplay);
+
+      const shipStatusElement = document.createElement('div');
+      shipStatusElement.classList.add('ship-status-element');
+      shipStatusElement.dataset.shipName = ship.shipName;
+      shipWrapper.appendChild(shipStatusElement);
+
+      for (let i = 0; i < ship.length; i++) {
+        const gridItem = document.createElement('div');
+        gridItem.style.width = `20px`;
+        gridItem.style.height = `20px`;
+        gridItem.classList.add('grid-item', 'grid-item-ship');
+
+        shipStatusElement.appendChild(gridItem);
+      }
+    }
+  });
+};
+
 const renderNewMessage = (message) => {
   const gameStatus = document.querySelector('.game-status');
   gameStatus.textContent = message;
@@ -95,15 +133,17 @@ const renderHitCell = (cellElement, isHit) => {
 };
 
 const renderShipsSunk = (shipName, whichPlayer) => {
-  const listToChange =
-    whichPlayer === 'player'
-      ? document.querySelector('#player-ships')
-      : document.querySelector('#computer-ships');
-
-  const shipToStrike = listToChange.querySelector(
-    `li[data-ship="${shipName}"]`
+  const statusContainer = document.querySelector(
+    `#${whichPlayer}-ships-status`
   );
-  shipToStrike.classList.add('sunk');
+  console.log(statusContainer);
+  const shipElementToSink = statusContainer.querySelector(
+    `[data-ship-name="${shipName}"]`
+  );
+  console.log(shipElementToSink);
+
+  const gridItems = shipElementToSink.querySelectorAll('.grid-item');
+  gridItems.forEach((gridItem) => gridItem.classList.add('sunk'));
 };
 
 const renderMessageDialog = (message, className) => {
@@ -194,6 +234,7 @@ const renderChangeShipsDialog = (playerObject) => {
 export {
   renderGameBoards,
   renderShips,
+  renderShipsStatus,
   renderNewMessage,
   renderHitCell,
   renderShipsSunk,

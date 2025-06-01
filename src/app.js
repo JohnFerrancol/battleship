@@ -1,5 +1,9 @@
 import './styles/style.css';
-import { renderGameBoards, renderShips } from './modules/ui/render.js';
+import {
+  renderGameBoards,
+  renderShips,
+  renderShipsStatus,
+} from './modules/ui/render.js';
 import { Player, Computer } from './modules/classes/Player.js';
 import './modules/ui/events.js';
 import { handleGameStart, handleNewBoard } from './modules/ui/events.js';
@@ -17,4 +21,5 @@ import { handleGameStart, handleNewBoard } from './modules/ui/events.js';
 
   handleGameStart(player, computer);
   handleNewBoard(player, computer);
+  renderShipsStatus();
 })();
