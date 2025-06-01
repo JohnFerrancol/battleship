@@ -136,13 +136,13 @@ const renderShipsSunk = (shipName, whichPlayer) => {
   const statusContainer = document.querySelector(
     `#${whichPlayer}-ships-status`
   );
-  console.log(statusContainer);
+
   const shipElementToSink = statusContainer.querySelector(
     `[data-ship-name="${shipName}"]`
   );
-  console.log(shipElementToSink);
 
   const gridItems = shipElementToSink.querySelectorAll('.grid-item');
+  console.log(gridItems);
   gridItems.forEach((gridItem) => gridItem.classList.add('sunk'));
 };
 

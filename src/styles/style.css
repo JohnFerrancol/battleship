@@ -125,8 +125,17 @@ main #computer-board .grid-item:hover {
   background-color: var(--light-grey);
 }
 
-main .grid-item-ship {
+main #player-board .grid-item-ship,
+main .ships-status-container .grid-item-ship {
   background-color: var(--dark-navy);
+}
+
+main #computer-board .grid-item-ship {
+  background-color: var(--white);
+}
+
+main .ships-status-container .sunk {
+  background-color: var(--red);
 }
 
 main .line {
@@ -192,10 +201,6 @@ main .ship-wrapper {
 
 main .ship-status-element {
   display: flex;
-}
-
-main .sunk {
-  background-color: var(--red);
 }
 
 main .button-container {
