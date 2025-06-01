@@ -29,16 +29,48 @@ const renderGameBoards = () => {
 const renderShips = (boardId, boardArray) => {
   const gameBoard = document.querySelector(`#${boardId}`);
   gameBoard.querySelectorAll('.grid-item').forEach((gridItem) => {
-    if (gridItem.classList.contains('grid-item-ship'))
+    if (gridItem.classList.contains('grid-item-ship')) {
       gridItem.classList.remove('grid-item-ship');
+      gridItem.innerHTML = '';
+    }
   });
+
   for (let i = 0; i < boardArray.length; i++) {
     for (let j = 0; j < boardArray.length; j++) {
       if (boardArray[i][j] !== null) {
         const gridItem = gameBoard.querySelector(
           `[data-coordinate="${i}, ${j}"`
         );
+
+        const shipObject = boardArray[i][j];
+
+        if (
+          shipObject.coords[0] === i &&
+          shipObject.coords[1] === j &&
+          boardId === 'player-mockup-board'
+        ) {
+          const shipElement = document.createElement('div');
+          shipElement.classList.add('dialog-ship-element');
+          shipElement.dataset.shipName = shipObject.name;
+          shipElement.setAttribute('draggable', 'true');
+          gridItem.appendChild(shipElement);
+
+          shipElement.style.flexDirection = shipObject.isHorizontal
+            ? 'row'
+            : 'column';
+
+          for (let i = 0; i < shipObject.length; i++) {
+            const subGridItem = document.createElement('div');
+            subGridItem.style.width = `50px`;
+            subGridItem.style.height = `50px`;
+            subGridItem.classList.add('grid-item', 'grid-item-ship');
+            subGridItem.dataset.shipIndex = i;
+            shipElement.appendChild(subGridItem);
+          }
+        }
+
         gridItem.classList.add('grid-item-ship');
+        gridItem.id = shipObject.name;
       }
     }
   }
@@ -112,6 +144,53 @@ const renderMessageDialog = (message, className) => {
   }
 };
 
+const renderChangeShipsDialog = (playerObject) => {
+  const changeShipsDialog = document.querySelector('dialog');
+  changeShipsDialog.classList.add('change-ships-dialog');
+
+  const closeDialogContainer = document.createElement('div');
+  closeDialogContainer.classList.add('close-dialog-container');
+
+  const closeDialogIcon = document.createElement('img');
+  closeDialogIcon.classList.add('close-dialog-icon');
+  closeDialogIcon.src = closeDialogLogo;
+  closeDialogIcon.alt = 'Close Dialog';
+  closeDialogContainer.appendChild(closeDialogIcon);
+  changeShipsDialog.appendChild(closeDialogContainer);
+
+  const dialogMessage = document.createElement('h3');
+  dialogMessage.textContent = 'Change Ships';
+  dialogMessage.classList.add('dialog-title');
+  changeShipsDialog.appendChild(dialogMessage);
+
+  const gameBoard = document.createElement('div');
+  gameBoard.classList.add('game-board');
+  gameBoard.id = 'player-mockup-board';
+  changeShipsDialog.appendChild(gameBoard);
+  setTimeout(() => {
+    renderGameBoards();
+    renderShips('player-mockup-board', playerObject.gameboard.board);
+  }, 0);
+
+  const shipsContainer = document.createElement('div');
+  shipsContainer.classList.add('ships-container', 'vertical');
+  changeShipsDialog.appendChild(shipsContainer);
+
+  const buttonContainer = document.createElement('div');
+  buttonContainer.classList.add('button-container');
+  changeShipsDialog.appendChild(buttonContainer);
+
+  const closeButton = document.createElement('button');
+  closeButton.classList.add('close-button');
+  closeButton.textContent = 'Done';
+  buttonContainer.appendChild(closeButton);
+
+  const reorderButton = document.createElement('button');
+  reorderButton.classList.add('reorder-button');
+  reorderButton.textContent = 'Randomly Place Ships';
+  buttonContainer.appendChild(reorderButton);
+};
+
 export {
   renderGameBoards,
   renderShips,
@@ -119,4 +198,5 @@ export {
   renderHitCell,
   renderShipsSunk,
   renderMessageDialog,
+  renderChangeShipsDialog,
 };

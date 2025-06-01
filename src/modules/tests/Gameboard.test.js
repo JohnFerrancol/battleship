@@ -12,8 +12,8 @@ describe('Gameboard Class Initialisation Unit tests', () => {
       carrier: new Ship('carrier', 5),
       battleship: new Ship('battleship', 4),
       cruiser: new Ship('cruiser', 3),
-      submarine: new Ship('submarine', 2),
-      destroyer: new Ship('destroyer', 1),
+      submarine: new Ship('submarine', 3),
+      destroyer: new Ship('destroyer', 2),
     });
   });
 });
@@ -83,6 +83,39 @@ describe('Gameboard class Unit Tests for placeShip method', () => {
   });
 });
 
+describe('Gameboard class Unit Tests for removeShip method', () => {
+  beforeEach(() => {
+    gameboard = new Gameboard();
+  });
+
+  const checkShip = (ship) => {
+    for (let i = 0; i < gameboard.size; i++) {
+      for (let j = 0; j < gameboard.size; j++) {
+        if (gameboard.board[i][j] === ship) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
+  it('removes a ship', () => {
+    const testerShip = new Ship('tester', 3);
+    gameboard.placeShip(testerShip, [0, 0], true);
+
+    expect(checkShip(testerShip)).toBeTruthy();
+    gameboard.removeShip(testerShip);
+    expect(checkShip(testerShip)).toBeFalsy();
+  });
+
+  it('handles removing a ship not on the board', () => {
+    const lostShip = new Ship('DNE', 2);
+
+    expect(() => gameboard.removeShip(lostShip)).not.toThrow();
+    expect(checkShip(lostShip)).toBeFalsy();
+  });
+});
+
 describe('Gameboard class Unit tests for randomlyPlaceShips method', () => {
   let flattenedCells;
   beforeEach(() => {
@@ -95,7 +128,7 @@ describe('Gameboard class Unit tests for randomlyPlaceShips method', () => {
     const totalLengthOfShips = flattenedCells.filter(
       (cell) => cell !== null
     ).length;
-    expect(totalLengthOfShips).toBe(15);
+    expect(totalLengthOfShips).toBe(17);
     for (const shipKey in gameboard.ships) {
       expect(flattenedCells).toContain(gameboard.ships[shipKey]);
     }
@@ -158,7 +191,7 @@ describe('Gameboard class Unit tests for reorderShips method', () => {
     const totalLengthOfShips = flattenedCells.filter(
       (cell) => cell !== null
     ).length;
-    expect(totalLengthOfShips).toBe(15);
+    expect(totalLengthOfShips).toBe(17);
 
     for (const shipKey in gameboard.ships) {
       expect(flattenedCells).toContain(gameboard.ships[shipKey]);

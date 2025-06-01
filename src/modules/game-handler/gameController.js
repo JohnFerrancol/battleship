@@ -4,7 +4,7 @@ import {
   renderNewMessage,
   renderShips,
 } from '../ui/render.js';
-import { showDialog } from '../ui/events.js';
+import { showMessageDialog, showChangeShipsDialog } from '../ui/events.js';
 
 const GameController = () => {
   let player, computer, isPlayerTurn;
@@ -12,7 +12,10 @@ const GameController = () => {
 
   const startGame = (playerObject, computerObject) => {
     if (isGameActive) {
-      showDialog('Game is currently ongoing! Reset the Game first!', 'alert');
+      showMessageDialog(
+        'Game is currently ongoing! Reset the Game first!',
+        'alert'
+      );
       return;
     }
     player = playerObject;
@@ -23,25 +26,41 @@ const GameController = () => {
     renderNewMessage("Player's Turn");
   };
 
-  const changePlayerBoard = (playerObject) => {
+  const changePlayerBoard = (playerObject, computerObject) => {
     if (isGameActive) {
-      showDialog(
+      showMessageDialog(
         'Game is currently ongoing! You cannot change ship positions!',
         'alert'
       );
       return;
     }
-    playerObject.reorderShips();
-    renderShips('player-board', playerObject.gameboard.board);
+
+    showChangeShipsDialog(playerObject);
+    document
+      .querySelector('.change-ships-dialog')
+      .addEventListener('close', () => {
+        const isBoardIncomplete = (boardArray) => {
+          const flattenedCells = boardArray.flat();
+          const totalLengthOfShips = flattenedCells.filter(
+            (cell) => cell !== null
+          ).length;
+
+          return totalLengthOfShips !== 17;
+        };
+        if (isBoardIncomplete(playerObject.gameboard.board))
+          playerObject.reorderShips();
+        renderShips('player-board', playerObject.gameboard.board);
+        renderShips('computer-board', computerObject.gameboard.board);
+      });
   };
 
   const resetGame = () => {
     if (!isGameActive) {
-      showDialog('Game is has not started!', 'alert');
+      showMessageDialog('Game is has not started!', 'alert');
       return;
     }
 
-    showDialog('Are you sure you want to restart the game?', 'confirm');
+    showMessageDialog('Are you sure you want to restart the game?', 'confirm');
   };
 
   const playTurn = (coords, targetElement) => {

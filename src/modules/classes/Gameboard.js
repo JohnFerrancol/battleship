@@ -8,8 +8,8 @@ export default class Gameboard {
       carrier: new Ship('carrier', 5),
       battleship: new Ship('battleship', 4),
       cruiser: new Ship('cruiser', 3),
-      submarine: new Ship('submarine', 2),
-      destroyer: new Ship('destroyer', 1),
+      submarine: new Ship('submarine', 3),
+      destroyer: new Ship('destroyer', 2),
     };
     this.missedAttacks = new Set([]);
     this.successfulAttacks = new Set([]);
@@ -46,6 +46,18 @@ export default class Gameboard {
       const row = isHorizontal ? y : y + i;
       const col = isHorizontal ? x + i : x;
       this.board[row][col] = ship;
+    }
+
+    ship.setAttributes([y, x], isHorizontal);
+  }
+
+  removeShip(shipToRemove) {
+    for (let y = 0; y < this.size; y++) {
+      for (let x = 0; x < this.size; x++) {
+        if (this.board[y][x] === shipToRemove) {
+          this.board[y][x] = null;
+        }
+      }
     }
   }
 

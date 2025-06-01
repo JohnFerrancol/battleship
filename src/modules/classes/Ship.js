@@ -4,6 +4,9 @@ export default class Ship {
     this.name = name;
     this.length = length;
     this.hitCount = 0;
+    this.coords = null;
+    this.isHorizontal = null;
+    this.isPlaced = false;
   }
 
   hit() {
@@ -14,5 +17,11 @@ export default class Ship {
 
   isSunk() {
     return this.length === this.hitCount;
+  }
+
+  setAttributes(coords, isHorizontal) {
+    this.coords = coords;
+    this.isHorizontal = isHorizontal;
+    this.isPlaced = true;
   }
 }

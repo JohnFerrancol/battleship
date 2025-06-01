@@ -16,5 +16,5 @@ import { handleGameStart, handleNewBoard } from './modules/ui/events.js';
   renderShips('computer-board', computer.gameboard.board);
 
   handleGameStart(player, computer);
-  handleNewBoard(player);
+  handleNewBoard(player, computer);
 })();

@@ -25,6 +25,7 @@
   --dark-navy: #2c3e50;
   --red: #ff3333;
   --content-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --dialog-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.16);
 }
 
 * {
@@ -40,7 +41,7 @@ body {
 }
 
 button,
-.grid-item,
+main .grid-item,
 .close-dialog-icon {
   cursor: pointer;
 }
@@ -108,7 +109,7 @@ main .grid-item {
   position: relative;
 }
 
-main .grid-item:hover {
+main #computer-board .grid-item:hover {
   background-color: var(--light-grey);
 }
 
@@ -196,13 +197,20 @@ dialog {
   margin: auto;
   width: 15%;
   font-family: inherit;
-  background-color: inherit;
+  background-color: var(--light-grey);
   color: inherit;
   border: none;
   box-shadow: var(--dialog-box-shadow);
   font-size: 1.5rem;
   padding: 1rem;
   border-radius: 0.5rem;
+}
+
+dialog.change-ships-dialog {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 dialog .close-dialog-container {
@@ -222,6 +230,11 @@ dialog .dialog-message {
   font-family: var(--font-bold);
 }
 
+dialog .dialog-title {
+  font-family: var(--font-bold);
+  text-align: center;
+}
+
 dialog .button-container {
   margin-top: 1.25rem;
   display: flex;
@@ -229,12 +242,42 @@ dialog .button-container {
   gap: 2rem;
 }
 
-dialog .close-button,
-.reset-button {
+dialog button {
   background-color: var(--black);
   font-size: 1.25rem;
   color: var(--white);
   border: none;
   padding: 0.75rem;
   border-radius: 0.5rem;
+}
+
+dialog .game-board {
+  width: 500px;
+  height: 500px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+dialog .grid-item {
+  background-color: var(--white);
+  border: 1px solid var(--black);
+  background-color: var(--white);
+  border-radius: 0.25rem;
+  position: relative;
+}
+
+dialog .grid-item-ship {
+  background-color: var(--dark-navy);
+}
+
+dialog .ships-container {
+  padding: 0.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+dialog .dialog-ship-element {
+  display: flex;
+  position: absolute;
+  z-index: 10;
 }
