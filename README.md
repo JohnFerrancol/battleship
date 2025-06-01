@@ -1,6 +1,6 @@
 # Battleship
 
-[Live Demo](#)<br/><br/>
+[Live Demo](https://johnferrancol.github.io/battleship/)<br/><br/>
 [![The Odin Project](https://img.shields.io/badge/The%20Odin%20Project-A9792B?logo=theodinproject&logoColor=fff)](#)
 
 ## Overview
